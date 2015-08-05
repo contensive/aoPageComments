@@ -18,6 +18,8 @@ Namespace contensive.addon.pageComment
             Dim cs As BaseClasses.CPCSBaseClass = CP.CSNew()
             Dim errorSTR As String = ""
             Dim errorStep As String = ""
+            Dim emailBody As String = ""
+            Dim editLink As String = ""
             '
             Dim CommentNeedApprove As Boolean = True
             '
@@ -74,6 +76,7 @@ Namespace contensive.addon.pageComment
                     CommentNeedApprove = CP.Site.GetBoolean("Page Comments - Comments Need to be Approve", "0")
                     '
                     If cs.Insert(cnPageComments) Then
+                        editLink = "http://" & CP.Site.Domain & CP.Site.GetText("adminUrl") & "?aa=0&id=" & cs.GetInteger("ID") & "&tx=&ad=0&cid=115&asf=1&af=4"
                         cs.SetField("pageID", pageID.Trim)
                         cs.SetField("memberID", CP.User.Id.ToString)
                         cs.SetField("memberName", memberName)
@@ -88,6 +91,18 @@ Namespace contensive.addon.pageComment
 
                     End If
                     Call cs.Close()
+                    ''
+                    ' System email 
+                    '
+                    If CP.Site.GetBoolean("Page Comments - Notification that a comment Has been Made") Then
+                        emailBody = "" _
+                            & "<br><a href=""" & editLink & """> CommentLink:" & editLink & "</a>" _
+                            & "<br>Full Name:" & memberName _
+                            & "<br>Email: " & memberEmail _
+                            & "<br>" _
+                            & ""
+                        CP.Email.sendSystem("Comment notification", emailBody)
+                    End If
                     errorSTR = "OK"
                 Else
                     errorSTR = errorSTR.Substring(0, errorSTR.Length - 1)

@@ -32,6 +32,7 @@ Namespace contensive.addon.pageComment
             '
             Try
                 '
+                ' If CP.Site.GetBoolean("Page Comments - Notification that a comment Has been Made") Then
                 ' TCA Comments Layout
                 '
                 layout.OpenLayout("{A5B5B56C-FF44-45CB-8933-7FE6D9AD9D8A}")
@@ -142,6 +143,9 @@ Namespace contensive.addon.pageComment
 
                     returnHtml = layout.GetHtml & CP.Html.Hidden("", CP.Doc.PageId.ToString, "", "page")
                 End If
+                ' End If
+                '
+
 
             Catch ex As Exception
                 errorReport(CP, ex, "execute")
