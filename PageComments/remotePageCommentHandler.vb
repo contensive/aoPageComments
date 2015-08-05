@@ -94,7 +94,7 @@ Namespace contensive.addon.pageComment
                     ''
                     ' System email 
                     '
-                    If CP.Site.GetBoolean("Page Comments - Notification that a comment Has been Made") Then
+                    If CP.Site.GetBoolean("Page Comments - Notification that a comment Has been Made", "1") Then
                         emailBody = "" _
                             & "<br><a href=""" & editLink & """> CommentLink:" & editLink & "</a>" _
                             & "<br>Full Name:" & memberName _
