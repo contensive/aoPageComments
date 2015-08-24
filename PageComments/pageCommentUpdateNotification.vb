@@ -61,7 +61,7 @@ Namespace contensive.addon.pageComment
                     '
                     emailHtmlBody = emailHtmlBodyHeader & emailHtmlBodyDetail
                     '
-                    ' Send the notofocation email
+                    ' Send the notification email
                     '
                     CP.Email.sendSystem("Page Comment Update Notification", emailHtmlBody)
                     '
